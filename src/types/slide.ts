@@ -7,7 +7,7 @@ type Slide = {
     background: Background;
 } 
 
-type Background = ColorBackground | ImageBackground
+type Background = ColorBackground | ImageBackground | null
 
 type ColorBackground = {
     color: string;
