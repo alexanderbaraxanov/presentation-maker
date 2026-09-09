@@ -27,30 +27,71 @@ function addSlide(presentation: Presentation, slideName?: string): Presentation 
 }
 
 function removeSlides(presentation: Presentation, slideIds: string[]): Presentation {
-    const newSlides: Slide[] = [];
-    let n: string = '';
-    for (n in presentation.slides) {
-        if (!(n in slideIds)) {
-            const newSlide = createDefaultSlide();
-            newSlides.push(newSlide);
-        } 
-    } 
-}//дописать функцию
-
-function setActiveSlide(presentation: Presentation, slideId: string): Presentation {
+    const newSlides = presentation.slides.filter(function(slide) {
+        if (!(slide.id in slideIds)){
+            return slide
+        }
+    });
     return {
         ...presentation,
-        activeSlideId: slideId,
-    }
+        slides: newSlides,
+    }   
 }
 
 function duplicateSlide(presentation: Presentation, slideId: string): Presentation {
+    const duplicatedSlide = presentation.slides.find(function(slide) {
+        return slide.id === slideId
+    })
+    if (duplicatedSlide !== undefined) {
+        return {
+            ...presentation,
+            slides: [...presentation.slides, duplicatedSlide],
+        }
+    } else {
+        return presentation
+    }
+}
 
-}//дописать функцию
+function setSlideBackgroundColor(slide: Slide, color: string): Slide {
+    return {
+        ...slide,
+        background: {
+            type: 'color',
+            color: color,
+        }
+    }
+}
+
+function setSlideBackgroundImage(slide: Slide, imageUrl: string): Slide {
+    return {
+        ...slide,
+        background: {
+            type: 'image',
+            src: imageUrl,
+        }
+    }
+}
+
+function setSlideBackgroundGradient(slide: Slide, colors: string[], angle?: number): Slide {
+    return {
+        ...slide,
+        background: {
+            type: 'gradient',
+            colors: colors,
+            angle: angle,
+        }
+    }
+}
+
+function clearSlideBackground(slide: Slide): Slide {
+    return {
+        ...slide, 
+        background: null,
+    }
+}
 
 export {
     createDefaultSlide,
     addSlide,
-    removeSlides,
-    setActiveSlide
+    removeSlides
 }

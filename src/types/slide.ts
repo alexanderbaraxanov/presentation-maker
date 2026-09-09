@@ -1,4 +1,6 @@
-import type { SlideObject } from './objects.ts';
+import type { TextObject, ImageObject } from './objects.ts';
+
+type SlideObject = TextObject | ImageObject;
 
 type Slide = {
     id: string;
@@ -7,14 +9,21 @@ type Slide = {
     background: Background;
 } 
 
-type Background = ColorBackground | ImageBackground | null
+type Background = ColorBackground | GradientBackground | ImageBackground | null
 
 type ColorBackground = {
+    type: 'color';
     color: string;
-    filling: 'solid' | 'gradient';
+}
+
+type GradientBackground = {
+    type: 'gradient';
+    colors: string[];
+    angle?: number;
 }
 
 type ImageBackground = {
+    type: 'image';
     src: string;
 }
 

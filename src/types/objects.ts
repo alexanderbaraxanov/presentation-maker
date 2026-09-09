@@ -4,6 +4,7 @@ type Point = {
 }
 
 type DefaultObject = {
+    id: string,
     location: Point;
     height: number;
     width: number;
@@ -11,14 +12,15 @@ type DefaultObject = {
 
 type TextObject = DefaultObject & {
     type: 'text';
-    text: string;
+    content: string;
+    fontFamily: string;
+    fontSize: number;
+    fontColor: string;
 }
 
 type ImageObject = DefaultObject & {
     type: 'image';
-    scr: string;
+    imageUrl: string;
 }
 
-type SlideObject = TextObject | ImageObject;
-
-export type { TextObject, ImageObject, SlideObject};
+export type { TextObject, ImageObject};

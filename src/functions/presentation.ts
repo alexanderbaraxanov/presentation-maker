@@ -15,7 +15,6 @@ function createPresentation(name: string, id: string): Presentation {
         id: id,
         name: name,
         slides: [defaultSlide],
-        activeSlideId: defaultSlide.id,
     }
 }
 
