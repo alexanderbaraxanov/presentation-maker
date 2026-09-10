@@ -1,12 +1,5 @@
 import type { Presentation } from "../types/presentation.ts";
-import type { Slide } from "../types/slide.ts";
-
-function generateId(): string {
-  const timestamp = Date.now().toString(36);
-  const randomPart = Math.random().toString(36).substring(2, 8);
-  return `${timestamp}-${randomPart}`;
-} 
-// написать собственную генерацию
+import type { Slide } from "../types/slide.ts"; 
 
 function createDefaultSlide(id: string, slideName: string): Slide {
   return {
@@ -17,9 +10,8 @@ function createDefaultSlide(id: string, slideName: string): Slide {
   };
 }
 
-function addSlide(presentation: Presentation, slideName?: string): Presentation  {
-    const idNewSlide = generateId();
-    const newSlide = createDefaultSlide(idNewSlide, slideName || `Слайд ${presentation.slides.length + 1}`);
+function addSlide(presentation: Presentation, newSlideId: string, slideName?: string): Presentation  {
+    const newSlide = createDefaultSlide(newSlideId, slideName || `Слайд ${presentation.slides.length + 1}`);
     return {
         ...presentation,
         slides: [...presentation.slides, newSlide],
@@ -27,7 +19,7 @@ function addSlide(presentation: Presentation, slideName?: string): Presentation 
 }
 
 function removeSlides(presentation: Presentation, slideIds: string[]): Presentation {
-    const newSlides = presentation.slides.filter(function(slide) {
+    const newSlides = presentation.slides.filter((slide) => {
         if (!(slide.id in slideIds)){
             return slide
         }
@@ -39,18 +31,18 @@ function removeSlides(presentation: Presentation, slideIds: string[]): Presentat
 }
 
 function duplicateSlide(presentation: Presentation, slideId: string): Presentation {
-    const duplicatedSlide = presentation.slides.find(function(slide) {
-        return slide.id === slideId
-    })
-    if (duplicatedSlide !== undefined) {
-        return {
-            ...presentation,
-            slides: [...presentation.slides, duplicatedSlide],
+    const foundDuplicatedSlide = presentation.slides.filter((slide) => {
+        if (slide.id === slideId){
+            return slide
         }
-    } else {
-        return presentation
+    })
+    const duplicatedSlide = structuredClone(foundDuplicatedSlide) // разобраться с функцией, как рабоатет 
+
+    return {
+        ...presentation,
+        slides: [...presentation.slides, ...duplicatedSlide],
     }
-}
+} 
 
 function setSlideBackgroundColor(slide: Slide, color: string): Slide {
     return {

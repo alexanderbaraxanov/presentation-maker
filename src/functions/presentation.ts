@@ -1,15 +1,7 @@
 import type { Presentation } from '../types/presentation.ts';
-import { createDefaultSlide } from './slide.js'
+import { createDefaultSlide } from './slide.js';
 
-function generateId(): string {
-  const timestamp = Date.now().toString(36);
-  const randomPart = Math.random().toString(36).substring(2, 8);
-  return `${timestamp}-${randomPart}`;
-} 
-// написать собственную генерацию
-
-function createPresentation(name: string, id: string): Presentation {
-    const idSlide = generateId();
+function createPresentation(name: string, idSlide: string ,id: string): Presentation {
     const defaultSlide = createDefaultSlide('Слайд 1', idSlide); 
     return {
         id: id,

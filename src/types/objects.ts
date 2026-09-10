@@ -3,19 +3,27 @@ type Point = {
     y: number;
 }
 
-type DefaultObject = {
-    id: string,
-    location: Point;
-    height: number;
-    width: number;
+type Size = {
+    height: number,
+    width: number,
 }
 
-type TextObject = DefaultObject & {
-    type: 'text';
+type Text = {
     content: string;
     fontFamily: string;
     fontSize: number;
     fontColor: string;
+}
+
+type DefaultObject = {
+    id: string,
+    location: Point;
+    sizeObject: Size;
+}
+
+type TextObject = DefaultObject & {
+    type: 'text';
+    textObject: Text;
 }
 
 type ImageObject = DefaultObject & {
@@ -23,4 +31,4 @@ type ImageObject = DefaultObject & {
     imageUrl: string;
 }
 
-export type { TextObject, ImageObject};
+export type { TextObject, ImageObject, Point, Size, Text };
