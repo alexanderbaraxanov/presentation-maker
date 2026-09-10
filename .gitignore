@@ -1,4 +1,2 @@
-{
-    dist
-    node_models
-}
+/dist
+/node_models
