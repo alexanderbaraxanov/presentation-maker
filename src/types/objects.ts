@@ -8,8 +8,7 @@ type Size = {
     width: number,
 }
 
-type Text = {
-    content: string;
+type FontStyle = {
     fontFamily: string;
     fontSize: number;
     fontColor: string;
@@ -23,7 +22,8 @@ type DefaultObject = {
 
 type TextObject = DefaultObject & {
     type: 'text';
-    textObject: Text;
+    content: string;
+    contentStyle: FontStyle;
 }
 
 type ImageObject = DefaultObject & {
@@ -31,4 +31,4 @@ type ImageObject = DefaultObject & {
     imageUrl: string;
 }
 
-export type { TextObject, ImageObject, Point, Size, Text };
+export type { TextObject, ImageObject, DefaultObject, Point, Size, FontStyle };

@@ -85,5 +85,10 @@ function clearSlideBackground(slide: Slide): Slide {
 export {
     createDefaultSlide,
     addSlide,
-    removeSlides
+    removeSlides,
+    duplicateSlide,
+    setSlideBackgroundColor,
+    setSlideBackgroundGradient,
+    setSlideBackgroundImage,
+    clearSlideBackground,
 }

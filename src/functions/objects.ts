@@ -1,4 +1,4 @@
-import type { TextObject, ImageObject, Point, Size, Text } from "../types/objects.ts"
+import type { TextObject, ImageObject, DefaultObject, Point, Size, FontStyle } from "../types/objects.ts"
 import type { Slide } from "../types/slide.ts"
 
 function generateId(): string {
@@ -6,17 +6,21 @@ function generateId(): string {
     const randomPart = Math.random().toString(36).substring(2, 8);
     return `${timestamp}-${randomPart}`;
 } 
-//function addObject(): Slide {
-//    
-//} дописать функцию
 
-function addTextObject(slide: Slide, id: string, location: Point, sizeObject: Size, textObject: Text): Slide {
-    const newTextObject: TextObject = {
+function addDefaultObject(id: string, location: Point, sizeObject: Size): DefaultObject {
+    return {
         id: id,
         location: location,
         sizeObject: sizeObject,
+    }
+}
+
+function addTextObject(slide: Slide, id: string, location: Point, sizeObject: Size, content: string, fontStyle: FontStyle): Slide {
+    const newTextObject: TextObject = {
+        ...addDefaultObject(id, location, sizeObject),
         type: 'text',
-        textObject: textObject 
+        content: content,
+        contentStyle: fontStyle, 
     }
     return {
         ...slide,
@@ -26,9 +30,7 @@ function addTextObject(slide: Slide, id: string, location: Point, sizeObject: Si
 
 function addImageObject(slide: Slide, id: string, imageUrl: string, location: Point, sizeObject: Size): Slide {
     const newTextObject: ImageObject = {
-        id: id,
-        location: location,
-        sizeObject: sizeObject,
+        ...addDefaultObject(id, location, sizeObject),
         type: 'image',
         imageUrl: imageUrl
     }
@@ -109,4 +111,12 @@ function updateTextObjectStyle(slide: Slide, objectId: string, fontFamily: strin
     }
 }
 
-export { generateId }
+export { 
+    generateId,
+    addTextObject,
+    addImageObject,
+    removeObject,
+    moveObject,
+    resizeObject,
+    updateTextObjectStyle, 
+}

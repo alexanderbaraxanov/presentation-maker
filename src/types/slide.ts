@@ -27,4 +27,4 @@ type ImageBackground = {
     src: string;
 }
 
-export type { Slide, Background};
+export type { Slide, Background, SlideObject };
