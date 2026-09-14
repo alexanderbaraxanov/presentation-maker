@@ -3,22 +3,32 @@ type Point = {
     y: number;
 }
 
+type Size = {
+    height: number,
+    width: number,
+}
+
+type FontStyle = {
+    fontFamily: string;
+    fontSize: number;
+    fontColor: string;
+}
+
 type DefaultObject = {
+    id: string,
     location: Point;
-    height: number;
-    width: number;
+    sizeObject: Size;
 }
 
 type TextObject = DefaultObject & {
     type: 'text';
-    text: string;
+    content: string;
+    contentStyle: FontStyle;
 }
 
 type ImageObject = DefaultObject & {
     type: 'image';
-    scr: string;
+    imageUrl: string;
 }
 
-type SlideObject = TextObject | ImageObject;
-
-export type { TextObject, ImageObject, SlideObject};
+export type { TextObject, ImageObject, DefaultObject, Point, Size, FontStyle };
