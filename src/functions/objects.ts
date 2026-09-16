@@ -113,6 +113,7 @@ function updateTextObjectStyle(slide: Slide, objectId: string, fontFamily: strin
 
 export { 
     generateId,
+    addDefaultObject,
     addTextObject,
     addImageObject,
     removeObject,
