@@ -90,14 +90,12 @@ function resizeObject(slide: Slide, objectId: string, newSizeObject: Size): Slid
     }
 } 
 
-function updateTextObjectStyle(slide: Slide, objectId: string, fontFamily: string, fontSize: number, fontColor: string): Slide {
+function updateTextObjectStyle(slide: Slide, objectId: string, fontStyle: FontStyle): Slide {
     const newSlideObjects = slide.slideObjects.map((slideObject) => {
         if (slideObject.id === objectId) {
             return {
                 ...slideObject,
-                fontFamily: fontFamily,
-                fontSize: fontSize,
-                fontColor: fontColor,
+                contentStyle: fontStyle,
             }
         }
 
