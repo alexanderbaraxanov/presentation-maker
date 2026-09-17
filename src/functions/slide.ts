@@ -30,17 +30,19 @@ function removeSlides(presentation: Presentation, slideIds: string[]): Presentat
     }   
 }
 
-function duplicateSlide(presentation: Presentation, slideId: string): Presentation {
+function duplicateSlide(presentation: Presentation, slideId: string, newSlideId: string): Presentation {
     const foundDuplicatedSlide = presentation.slides.filter((slide) => {
-        if (slide.id === slideId){
-            return slide
-        }
+        return slide.id === slideId
     })
-    const duplicatedSlide = structuredClone(foundDuplicatedSlide) // разобраться с функцией, как рабоатет 
+    const duplicatedSlide = structuredClone(foundDuplicatedSlide) 
+    const newDuplicatedSlide = {
+        ...duplicatedSlide,
+        id: newSlideId,
+    }
 
     return {
         ...presentation,
-        slides: [...presentation.slides, ...duplicatedSlide],
+        slides: [...presentation.slides, ...newDuplicatedSlide],
     }
 } 
 
