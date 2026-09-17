@@ -1,6 +1,34 @@
-type Point = {
-    x: number;
-    y: number;
+type SlideObject = TextObject | ImageObject;
+
+type TextObject = DefaultObject & {
+    type: 'text',
+    contentObject: Text,
+}
+
+type ImageObject = DefaultObject & {
+    type: 'image',
+    imageUrl: string,
+}
+
+type DefaultObject = {
+    id: string,
+    parametersObject: Parameters,
+}
+
+type Parameters = {
+    locationObject: Point,
+    sizeObject: Size,
+}
+
+type Text = {
+    content: string,
+    style: FontStyle,
+}
+
+type FontStyle = {
+    fontFamily: string,
+    fontSize: number,
+    fontColor: string,
 }
 
 type Size = {
@@ -8,27 +36,19 @@ type Size = {
     width: number,
 }
 
-type FontStyle = {
-    fontFamily: string;
-    fontSize: number;
-    fontColor: string;
+type Point = {
+    x: number,
+    y: number,
 }
 
-type DefaultObject = {
-    id: string,
-    location: Point;
-    sizeObject: Size;
-}
-
-type TextObject = DefaultObject & {
-    type: 'text';
-    content: string;
-    contentStyle: FontStyle;
-}
-
-type ImageObject = DefaultObject & {
-    type: 'image';
-    imageUrl: string;
-}
-
-export type { TextObject, ImageObject, DefaultObject, Point, Size, FontStyle };
+export type { 
+    SlideObject,
+    TextObject, 
+    ImageObject, 
+    DefaultObject, 
+    Text,
+    Parameters,
+    Point, 
+    Size, 
+    FontStyle 
+};

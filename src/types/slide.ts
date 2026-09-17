@@ -1,6 +1,4 @@
-import type { TextObject, ImageObject } from './objects.ts';
-
-type SlideObject = TextObject | ImageObject;
+import type { SlideObject} from './objects.ts';
 
 type Slide = {
     id: string;
@@ -27,4 +25,8 @@ type ImageBackground = {
     src: string;
 }
 
-export type { Slide, Background, SlideObject };
+export type { 
+    Slide, 
+    Background, 
+    SlideObject 
+};
