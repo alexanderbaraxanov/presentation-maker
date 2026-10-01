@@ -2,8 +2,8 @@ import type { Presentation } from '../types/presentation.ts';
 
 function createPresentation(name: string, id: string): Presentation {
     return {
-        id: id,
-        name: name,
+        id,
+        name,
         slides: [],
     }
 }
@@ -11,7 +11,7 @@ function createPresentation(name: string, id: string): Presentation {
 function updatePresentationName(presentation: Presentation, name: string): Presentation {
     return {
         ...presentation,
-        name: name,
+        name,
     }
 }
 

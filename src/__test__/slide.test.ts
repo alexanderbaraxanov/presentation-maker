@@ -3,6 +3,7 @@ import {
     createDefaultSlide,
     addSlide,
     removeSlide,
+    moveSlide,
     duplicateSlide,
     setSlideBackground,
 } from '../functions/slide.ts';
@@ -44,10 +45,23 @@ it('should add new slide in presentation', () => {
     expect(newSlide.name).toBe('slide 2');
 })
 
+it('should move slide in presentation', () => {
+    const {presentation} = setDefaultPresentation();
+    const newPresentation = addSlide(presentation, '2', 'новый_слайд2');
+
+    const updatedPresentation = moveSlide(newPresentation, '2', 0);
+
+    expect(updatedPresentation.slides[0]).not.toBe(updatedPresentation.slides[1]);
+    expect(updatedPresentation.slides[1].id).toEqual('1');
+    expect(updatedPresentation.slides[1].name).toEqual('новый_слайд');
+    expect(updatedPresentation.slides).toHaveLength(2);
+    console.log(updatedPresentation.slides)
+})
+
 it('should remove slide in presentation', () => {
     const {presentation, slide} = setDefaultPresentation();
 
-    const newPresentation = removeSlide(presentation, [slide.id]);
+    const newPresentation = removeSlide(presentation, [slide.id, 'hhj']);
     
     expect(newPresentation.slides.find(currSlide => currSlide.id === slide.id)).toBeUndefined();
     expect(newPresentation).not.toBe(presentation);

@@ -12,7 +12,7 @@ import type { Slide } from "../types/slide.ts"
 
 function createDefaultObject(id: string, parametersObject: Parameters): DefaultObject {
     return {
-        id: id,
+        id,
         parametersObject: parametersObject,
     }
 }

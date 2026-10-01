@@ -28,6 +28,23 @@ function removeSlide(presentation: Presentation, slideIds: string[]): Presentati
     }   
 }
 
+function moveSlide(presentation: Presentation, slideId: string, newIndex: number): Presentation {
+    const slideIndex = presentation.slides.findIndex((slide) => {
+        return slide.id === slideId
+    }); 
+
+    if ((newIndex < 0 || newIndex >= presentation.slides.length) || (newIndex === slideIndex)) {
+        return presentation;
+    }
+
+    const updatedSlides = presentation.slides.toSpliced(slideIndex, 1).toSpliced(newIndex, 0, presentation.slides[slideIndex]);
+    
+    return {
+        ...presentation,
+        slides: updatedSlides,
+    }
+}
+
 function duplicateSlide(presentation: Presentation, slideId: string, newSlideId: string): Presentation {
     const foundDuplicatedSlides = presentation.slides.find((slide => slide.id === slideId));
     if (!foundDuplicatedSlides) {
@@ -56,6 +73,7 @@ export {
     createDefaultSlide,
     addSlide,
     removeSlide,
+    moveSlide,
     duplicateSlide,
     setSlideBackground,
 }
