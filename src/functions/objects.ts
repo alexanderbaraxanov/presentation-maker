@@ -1,26 +1,27 @@
-import type { TextObject, ImageObject, DefaultObject, Point, Size, FontStyle } from "../types/objects.ts"
+import type { 
+    TextObject,
+    ImageObject, 
+    DefaultObject, 
+    Parameters,
+    Point,
+    Size,
+    Text,
+    SlideObject, 
+} from "../types/objects.ts"
 import type { Slide } from "../types/slide.ts"
 
-function generateId(): string {
-    const timestamp = Date.now().toString(36);
-    const randomPart = Math.random().toString(36).substring(2, 8);
-    return `${timestamp}-${randomPart}`;
-} 
-
-function addDefaultObject(id: string, location: Point, sizeObject: Size): DefaultObject {
+function createDefaultObject(id: string, parametersObject: Parameters): DefaultObject {
     return {
         id: id,
-        location: location,
-        sizeObject: sizeObject,
+        parametersObject: parametersObject,
     }
 }
 
-function addTextObject(slide: Slide, id: string, location: Point, sizeObject: Size, content: string, fontStyle: FontStyle): Slide {
+function addTextObject(slide: Slide, id: string, parametersObject: Parameters, contentText: Text): Slide {
     const newTextObject: TextObject = {
-        ...addDefaultObject(id, location, sizeObject),
+        ...createDefaultObject(id, parametersObject),
         type: 'text',
-        content: content,
-        contentStyle: fontStyle, 
+        contentObject: contentText, 
     }
     return {
         ...slide,
@@ -28,43 +29,34 @@ function addTextObject(slide: Slide, id: string, location: Point, sizeObject: Si
     }
 }
 
-function addImageObject(slide: Slide, id: string, imageUrl: string, location: Point, sizeObject: Size): Slide {
-    const newTextObject: ImageObject = {
-        ...addDefaultObject(id, location, sizeObject),
+function addImageObject(slide: Slide, id: string, parametersObject: Parameters, imageUrl: string): Slide {
+    const newImageObject: ImageObject = {
+        ...createDefaultObject(id, parametersObject),
         type: 'image',
         imageUrl: imageUrl
     }
     return {
         ...slide,
-        slideObjects: [...slide.slideObjects, newTextObject]
+        slideObjects: [...slide.slideObjects, newImageObject]
     }
 }
 
 function removeObject(slide: Slide, objectId: string): Slide {
-    const newSlideObjects = slide.slideObjects.filter((slideObject) => {
-        if (slideObject.id !== objectId){
-            return slideObject
-        }
-    });
     return {
         ...slide,
-        slideObjects: newSlideObjects,
+        slideObjects: slide.slideObjects.filter((slideObject) => slideObject.id !== objectId), 
     }
 }
 
 function modifyObject(slide: Slide, objectId:string, modifyFunction: (object: SlideObject) => SlideObject): Slide {
     const newSlideObjects = slide.slideObjects.map((slideObject) => {
         if (slideObject.id === objectId) {
-            return {
-                ...slideObject,
-                location: newLocation,
-            }
+            return modifyFunction(slideObject)
         }
 
-        return {
-            ...slideObject
-        }
+        return slideObject;
     })
+
     return {
         ...slide,
         slideObjects: newSlideObjects,
@@ -72,50 +64,43 @@ function modifyObject(slide: Slide, objectId:string, modifyFunction: (object: Sl
 }
 
 function resizeObject(slide: Slide, objectId: string, newSizeObject: Size): Slide {
-    const newSlideObjects = slide.slideObjects.map((slideObject) => {
-        if (slideObject.id === objectId) {
-            return {
-                ...slideObject,
+    return modifyObject(slide, objectId, (slideObject: SlideObject) => {
+        return {
+            ...slideObject,
+            parametersObject: {
+                ...slideObject.parametersObject,
                 sizeObject: newSizeObject,
-            }
-        }
+            },
+        }})
+}
 
+function moveObject(slide: Slide, objectId: string, newLocationObject: Point): Slide {
+    return modifyObject(slide, objectId, (slideObject: SlideObject) => {
         return {
-            ...slideObject
+            ...slideObject,
+            parametersObject: {
+                ...slideObject.parametersObject,
+                locationObject: newLocationObject,
+            },
         }
     })
-    return {
-        ...slide,
-        slideObjects: newSlideObjects,
-    }
-} 
+}
 
-function updateTextObjectStyle(slide: Slide, objectId: string, fontStyle: FontStyle): Slide {
-    const newSlideObjects = slide.slideObjects.map((slideObject) => {
-        if (slideObject.id === objectId) {
-            return {
-                ...slideObject,
-                contentStyle: fontStyle,
-            }
-        }
-
+function updateTextObject(slide: Slide, objectId: string, newTextStyle: Text): Slide {
+    return modifyObject(slide, objectId, (slideObject: SlideObject) => {
         return {
-            ...slideObject
+            ...slideObject,
+            contentObject: newTextStyle,
         }
     })
-    return {
-        ...slide,
-        slideObjects: newSlideObjects,
-    }
 }
 
 export { 
-    generateId,
-    addDefaultObject,
+    createDefaultObject,
     addTextObject,
     addImageObject,
     removeObject,
-    moveObject,
     resizeObject,
-    updateTextObjectStyle, 
+    moveObject,
+    updateTextObject, 
 }

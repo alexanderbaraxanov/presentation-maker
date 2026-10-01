@@ -11,7 +11,7 @@ function createPresentation(name: string, id: string): Presentation {
 function updatePresentationName(presentation: Presentation, name: string): Presentation {
     return {
         ...presentation,
-        name,
+        name: name,
     }
 }
 

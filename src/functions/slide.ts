@@ -1,5 +1,5 @@
 import type { Presentation } from "../types/presentation.ts";
-import type { Slide } from "../types/slide.ts"; 
+import type { Slide, Background } from "../types/slide.ts"; 
 
 function createDefaultSlide(id: string, slideName: string): Slide {
   return {
@@ -18,11 +18,9 @@ function addSlide(presentation: Presentation, newSlideId: string, slideName?: st
     }
 }
 
-function removeSlides(presentation: Presentation, slideIds: string[]): Presentation {
+function removeSlide(presentation: Presentation, slideIds: string[]): Presentation {
     const newSlides = presentation.slides.filter((slide) => {
-        if (!(slide.id in slideIds)){
-            return slide
-        }
+        return !slideIds.includes(slide.id);
     });
     return {
         ...presentation,
@@ -31,66 +29,33 @@ function removeSlides(presentation: Presentation, slideIds: string[]): Presentat
 }
 
 function duplicateSlide(presentation: Presentation, slideId: string, newSlideId: string): Presentation {
-    const foundDuplicatedSlide = presentation.slides.filter((slide) => {
-        return slide.id === slideId
-    })
-    const duplicatedSlide = structuredClone(foundDuplicatedSlide) 
-    const newDuplicatedSlide = {
-        ...duplicatedSlide,
+    const foundDuplicatedSlides = presentation.slides.find((slide => slide.id === slideId));
+    if (!foundDuplicatedSlides) {
+        return presentation;
+    }
+
+    const newDuplicatedSlides: Slide = {
+        ...structuredClone(foundDuplicatedSlides) ,
         id: newSlideId,
     }
 
     return {
         ...presentation,
-        slides: [...presentation.slides, ...newDuplicatedSlide],
+        slides: [...presentation.slides, newDuplicatedSlides],
     }
 } 
 
-function setSlideBackgroundColor(slide: Slide, color: string): Slide {
-    return {
-        ...slide,
-        background: {
-            type: 'color',
-            color: color,
-        }
-    }
-}
-
-function setSlideBackgroundImage(slide: Slide, imageUrl: string): Slide {
-    return {
-        ...slide,
-        background: {
-            type: 'image',
-            src: imageUrl,
-        }
-    }
-}
-
-function setSlideBackgroundGradient(slide: Slide, colors: string[], angle?: number): Slide {
-    return {
-        ...slide,
-        background: {
-            type: 'gradient',
-            colors: colors,
-            angle: angle,
-        }
-    }
-}
-
-function clearSlideBackground(slide: Slide): Slide {
+function setSlideBackground(slide: Slide, background: Background): Slide {
     return {
         ...slide, 
-        background: null,
+        background: background,
     }
 }
 
 export {
     createDefaultSlide,
     addSlide,
-    removeSlides,
+    removeSlide,
     duplicateSlide,
-    setSlideBackgroundColor,
-    setSlideBackgroundGradient,
-    setSlideBackgroundImage,
-    clearSlideBackground,
+    setSlideBackground,
 }
