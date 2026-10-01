@@ -52,7 +52,7 @@ function removeObject(slide: Slide, objectId: string): Slide {
     }
 }
 
-function moveObject(slide: Slide, objectId: string, newLocation: Point): Slide {
+function modifyObject(slide: Slide, objectId:string, modifyFunction: (object: SlideObject) => SlideObject): Slide {
     const newSlideObjects = slide.slideObjects.map((slideObject) => {
         if (slideObject.id === objectId) {
             return {
