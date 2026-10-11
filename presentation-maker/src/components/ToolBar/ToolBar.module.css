@@ -1,0 +1,17 @@
+.toolBarSpace {
+    background: rgb(250, 249, 249);
+    width: 5%;
+    display: grid;
+    grid-template-rows: 4fr 1fr;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-items: center;
+}
+
+.toolBar {
+    height: 50%;
+    width: 65%;
+    grid-column-start: 1;
+    background: rgba(237, 223, 205, 1);
+    border-radius: 30px;
+}

@@ -1,0 +1,7 @@
+.slideList {
+    position: relative;
+    height: 14%;
+    width: 75%;
+    border-radius: 10px;
+    background: rgba(231, 230, 228, 0.87); 
+}
