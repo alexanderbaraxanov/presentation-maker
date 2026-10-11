@@ -231,5 +231,7 @@ function createTestPresentation(): Presentation {
 
     return presentation;
 } 
-
+    
 export { createTestPresentation };
+
+//не использовать доменные функции
