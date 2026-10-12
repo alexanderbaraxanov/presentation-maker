@@ -9,9 +9,39 @@
 }
 
 .toolBar {
-    height: 50%;
-    width: 65%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 4rem;
+    padding: 1.5rem 0 1.5rem 0;
     grid-column-start: 1;
     background: rgba(237, 223, 205, 1);
     border-radius: 100px;
+}
+
+.toolBarButton {
+    display: inline-flex;
+    border-radius: 10px;
+    height: 2.8rem;
+    width: 2.8rem;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+
+    background:  rgba(209, 117, 4, 1);
+}
+
+.buttonImg {
+    height: 2rem;
+    width: 2rem;
+}
+
+.toolBarButton:hover {
+    background: rgba(241, 134, 3, 0.85);
+}
+
+.toolBarButton:focus {
+    background: rgb(112, 62, 0);
 }

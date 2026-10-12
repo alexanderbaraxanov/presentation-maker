@@ -1,6 +1,6 @@
 .menu {
     display: grid;
-    grid-template-columns: 5% 4fr 10fr 4fr;
+    grid-template-columns: 4% 4fr 4fr 3.7fr;
     grid-template-rows: 1fr;
     column-gap: 5px;
     width: 100%;
@@ -15,14 +15,10 @@
     align-items: center;
 }
 
-.newPresentation {
+.buttonNewPresentation {
     display: inline-flex;
     align-items: center;
     justify-content: space-evenly;  
-    
-    font-size:larger;
-    font-weight: 800;
-    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 
     gap: 8px; 
     width: 50%;
@@ -32,11 +28,11 @@
     padding: 5px;
 }
 
-.newPresentation:hover {
+.buttonNewPresentation:hover {
     background: rgb(228, 202, 171);
 }
 
-.saveAndLoad {
+.spaceSaveAndLoad {
     display: inline-flex;  
     height: 54%;
     width: 18%;
@@ -62,9 +58,6 @@
     width: 80%;
     padding: 10px;
     box-sizing: border-box;
-    font-size: medium;
-    font-weight: 800;
-    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     border-radius: 8px;
     border: none;
     align-self: center;
@@ -73,23 +66,47 @@
 
 .menuNameSpace::placeholder {
     color: rgba(30, 30, 30, 0.44);
-    font-size:larger;
+    text-align: center;
+    font-size: large;
     font-weight: 800;
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    text-align: center;
 }
 
 .menuNameSpace:focus-visible {
     outline-color: rgb(211, 161, 95);
+    outline-width: 2px;
+    outline-style: double;
+}
+
+.buttonSlideStart {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-evenly;      
+
+    gap: 8px; 
+    width: 30%;
+    height: 52%;
+    background: rgba(213, 156, 84, 1);
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.buttonSlideStart:hover {
+    background: rgb(228, 202, 171);
+}
+
+.startSlideImg {
+    width: 2.5rem;
+    height: 2.5rem;
 }
 
 .menuImg {
-    width: 28px;
-    height: 28px;
+    width: 1.8rem;
+    height: 1.8rem;
 }
 
 .icon {
-    height: 90%;
+    height: 4.8rem;
     grid-area: 1;
     justify-self: center;
     align-self: center;
