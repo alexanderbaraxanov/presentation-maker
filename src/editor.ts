@@ -1,4 +1,4 @@
-import type { Presentation } from './types/presentation.ts';
+import type { Presentation } from './types/presentation.js';
 
 type Modifier<P = any> = (model: Presentation, params: P) => Presentation;
 
