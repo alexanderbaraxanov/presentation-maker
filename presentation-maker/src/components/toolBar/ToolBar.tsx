@@ -1,5 +1,5 @@
 import styles from "./ToolBar.module.css"
-import { Button } from "../Button/Button"
+import { Button } from "../button/Button"
 import addImage from "../../assets/addImage.svg"
 import addText from "../../assets/addText.svg"
 
@@ -9,7 +9,6 @@ function ToolBar() {
             <div className={styles.toolBar}>
                 <Button imageUrl={addText} styleImg={styles.buttonImg} styleButton={styles.toolBarButton} />
                 <Button imageUrl={addImage} styleImg={styles.buttonImg} styleButton={styles.toolBarButton} />
-                <Button text="" styleButton={styles.toolBarButton} />
             </div>
         </div>
     )

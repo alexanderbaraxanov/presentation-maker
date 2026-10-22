@@ -1,0 +1,18 @@
+.slideListSpace {
+    display: flex;
+    grid-column: 2;
+    grid-row: 2;
+    justify-content: center;
+    align-items: center;
+}
+
+.slideList {
+    display: flex;
+    gap: 2vb;
+    height: 80%;
+    border-radius: 10px;
+    padding: 0 20px 0 20px;
+    background: rgba(237, 223, 205, 1); 
+    justify-content: center;
+    align-items: center;
+}

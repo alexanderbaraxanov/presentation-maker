@@ -8,12 +8,36 @@ let editorChangeHandler: (() => void) | null = null;
 
 let currentPresentation: Presentation | null = null;
 
+let activeSlide: string | null = null;
+
+let isPreview: boolean = false; 
+
+
 function setInitialState(presentation: Presentation): void {
     currentPresentation = presentation;
+
+    if (presentation.slides.length > 0) {
+        activeSlide = presentation.slides[0].id;
+    }
 }
 
 function getState(): Presentation | null {
     return currentPresentation;
+}
+
+function setPreviewMod(previewMod: boolean): void {
+    isPreview = previewMod;
+}
+function getPreviewMod(): boolean {
+    return isPreview;
+}
+
+function setActiveSlide(activeSlideId: string): void {
+    activeSlide = activeSlideId;
+}
+
+function getActiveSlide(): string | null {
+    return activeSlide;
 }
 
 function addEditorChangeHandler(handler: () => void): void {
@@ -37,6 +61,12 @@ function dispatch(modifier: Modifier, params: any = null): void {
 export { 
     setInitialState, 
     getState, 
+
+    setActiveSlide,
+    getActiveSlide,
+    setPreviewMod,
+    getPreviewMod,
+
     dispatch, 
     addEditorChangeHandler
 };
