@@ -3,6 +3,8 @@ import { SlideSpace } from "../slideSpace/SlideSpace"
 import { ToolBar} from "../toolBar/ToolBar"
 import { SlideList } from "../slideList/SlideList"
 import type { Presentation } from "../../../../src/types/presentation"
+import { getPreviewSlideIndex } from "../../../../src/editor"
+import { Properties } from "../SlideProperties /SlidePropeties"
 
 type WorkspaceProps = {
     presentation: Presentation; 
@@ -10,18 +12,23 @@ type WorkspaceProps = {
 }
 
 function Workspace(props: WorkspaceProps) {
-    const activeSlide = props.presentation.slides.find((e) => { e.id == props.activeSlideId }) 
-    if (!activeSlide)
-    {
-        return
+    const currentIndex = getPreviewSlideIndex();
+    const currentSlide = props.presentation.slides[currentIndex];
+    if (!currentSlide) {
+        return null
+    } 
+    else {
+        return (   
+            <div className={styles.workSpace}>
+                <ToolBar />
+                <div className={styles.centerArea}>
+                    <SlideSpace activeSlide={currentSlide} scaleSlide={1}/>
+                    <SlideList presentation={props.presentation}/>
+                </div>
+                <Properties/>
+            </div>
+        )
     }
-    return (   
-        <div className={styles.workSpace}>
-            <ToolBar />
-            <SlideList slides={props.presentation.slides}/>
-            <SlideSpace activeSlide={activeSlide}/>
-        </div>
-    )
 }
 
 export { Workspace }

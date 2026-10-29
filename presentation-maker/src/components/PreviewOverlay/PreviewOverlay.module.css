@@ -1,0 +1,42 @@
+.overlay {
+    display: grid;
+    grid-template-rows: 30px 1fr;
+    background-color: #020202;
+}
+
+.button {
+    display: flex;
+    background-color: 020202;
+    padding: 20px;
+    background-color: #020202;
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+    background-color: 020202;
+    grid-row: 1;
+}
+
+.slideStyle {
+    grid-row: 2;
+    height: 96.9vh;
+    width: 99vw;
+    display: flex; 
+    flex-direction: row;
+    align-items: center;
+    background-color: #020202;
+}
+
+.buttonClose {
+    background-color: rgb(219, 164, 82);
+    border-radius: 5px;
+}
+
+.counter {
+    background-color: rgb(219, 164, 82);
+    border-radius: 5px;
+    padding: 3px;
+}

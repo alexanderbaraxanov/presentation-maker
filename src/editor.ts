@@ -10,8 +10,9 @@ let currentPresentation: Presentation | null = null;
 
 let activeSlide: string | null = null;
 
-let isPreview: boolean = false; 
+let isPreviewMode: boolean = false; 
 
+let previewSlideIndex: number = 0;
 
 function setInitialState(presentation: Presentation): void {
     currentPresentation = presentation;
@@ -25,19 +26,43 @@ function getState(): Presentation | null {
     return currentPresentation;
 }
 
-function setPreviewMod(previewMod: boolean): void {
-    isPreview = previewMod;
-}
-function getPreviewMod(): boolean {
-    return isPreview;
+function setPreviewMode(mode: boolean): void {
+    isPreviewMode = mode;
+
+    if (editorChangeHandler) {
+        editorChangeHandler();
+    }
 }
 
-function setActiveSlide(activeSlideId: string): void {
-    activeSlide = activeSlideId;
+function getPreviewMode(): boolean {
+    return isPreviewMode;
 }
 
 function getActiveSlide(): string | null {
     return activeSlide;
+}
+
+function setActiveSlide(activeSlideId: string): void {
+    activeSlide = activeSlideId;
+
+    if (editorChangeHandler) {
+        editorChangeHandler();
+    }
+}
+
+function getPreviewSlideIndex(): number {
+    return previewSlideIndex;
+}
+
+function setPreviewSlideIndex(index: number): void {
+    if (!currentPresentation) return;
+    if (index >= 0 && index < currentPresentation.slides.length) {
+        previewSlideIndex = index;
+    }
+
+    if (editorChangeHandler) {
+        editorChangeHandler();
+    }
 }
 
 function addEditorChangeHandler(handler: () => void): void {
@@ -64,8 +89,10 @@ export {
 
     setActiveSlide,
     getActiveSlide,
-    setPreviewMod,
-    getPreviewMod,
+    setPreviewMode,
+    getPreviewMode,
+    setPreviewSlideIndex,
+    getPreviewSlideIndex,
 
     dispatch, 
     addEditorChangeHandler

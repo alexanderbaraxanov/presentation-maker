@@ -1,9 +1,14 @@
+.slideWrapper {
+    width: 960px;
+    height: 540px;
+    zoom: 0;
+    flex-shrink: 0;        
+}
+
 .slidePreview {
-    container-type: inline-size;
+    position: relative;
     height: 100%;
-    width: 100%;
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;    
     border-radius: 3px;
     background: rgb(255, 255, 255);
     border: 1px solid rgba(30, 30, 30, 1);

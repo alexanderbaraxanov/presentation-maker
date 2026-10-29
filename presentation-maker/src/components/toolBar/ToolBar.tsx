@@ -4,7 +4,7 @@ import addImage from "../../assets/addImage.svg"
 import addText from "../../assets/addText.svg"
 
 function ToolBar() {
-    return (
+    return (   
         <div className={styles.toolBarSpace}>
             <div className={styles.toolBar}>
                 <Button imageUrl={addText} styleImg={styles.buttonImg} styleButton={styles.toolBarButton} />

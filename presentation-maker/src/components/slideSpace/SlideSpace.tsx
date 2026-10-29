@@ -4,14 +4,13 @@ import type { Slide } from "../../../../src/types/slide";
 
 type SlideSpaceProps = {
     activeSlide: Slide;
+    scaleSlide: number;
 }
 
 function SlideSpace(props: SlideSpaceProps) {
     return (
         <div className={styles.slideSpace}>
-            <div className={styles.slideWrapper}>
-                <SlidePreview slide={props.activeSlide}/>
-            </div>
+            <SlidePreview slide={props.activeSlide} scale={props.scaleSlide}/>
         </div>
     )
 }

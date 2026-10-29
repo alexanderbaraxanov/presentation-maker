@@ -4,7 +4,7 @@
     grid-template-rows: 1fr;
     column-gap: 5px;
     width: 100%;
-    height: 8%;
+    height: 4.5rem;
     background: rgba(78, 54, 23, 0.92);
 }
 
@@ -18,14 +18,10 @@
 .buttonNewPresentation {
     display: inline-flex;
     align-items: center;
-    justify-content: space-evenly;  
-
-    gap: 8px; 
-    width: 50%;
-    height: 52%;
-    background: rgba(213, 156, 84, 1);
+    justify-content: space-evenly;
+    gap: 8px;
+    background: rgb(213, 156, 84);
     border-radius: 10px;
-    padding: 5px;
 }
 
 .buttonNewPresentation:hover {
@@ -35,7 +31,7 @@
 .spaceSaveAndLoad {
     display: inline-flex;  
     height: 50%;
-    width: 16%;
+    width: 6rem;
     border-radius: 10px;
     background: rgba(213, 156, 84, 1);
     justify-content: space-around;
@@ -44,8 +40,7 @@
 
 .buttonSaveAndLoad {
     background: rgba(213, 156, 84, 1);
-    width: 45%;
-    height: 93%;
+    width: 2.6rem;
     border-radius: 10px;
 }
 
@@ -87,11 +82,8 @@
     justify-content: space-evenly;      
 
     gap: 8px; 
-    width: 30%;
-    height: 52%;
     background: rgba(213, 156, 84, 1);
     border-radius: 10px;
-    padding: 5px;
 }
 
 .buttonSlideStart:hover {
@@ -99,18 +91,18 @@
 }
 
 .startSlideImg {
-    width: 2.5vb;
-    height: 2.5vb;
+    width: 2.8rem;
+    height: 2.8rem;
 }
 
 .menuImg {
-    width: 2vb;
-    height: 2vb;
+    width: 1.8rem;
+    height: 1.8rem;
 }
 
 .icon {
-    height: 8vb;
-    width: 100%;
+    height: 4.5rem;
+    padding: 1px, 1px, 1px, 1px;
     grid-area: 1;
     justify-self: center;
     align-self: center;

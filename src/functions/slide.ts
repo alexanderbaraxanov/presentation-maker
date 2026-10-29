@@ -10,8 +10,8 @@ function createDefaultSlide(id: string, slideName: string): Slide {
   };
 }
 
-function addSlide(presentation: Presentation, newSlideId: string, slideName?: string): Presentation  {
-    const newSlide = createDefaultSlide(newSlideId, slideName || `Слайд ${presentation.slides.length + 1}`);
+function addSlide(presentation: Presentation, param: {newSlideId: string, slideName?: string}): Presentation  {
+    const newSlide = createDefaultSlide(param.newSlideId, param.slideName || `Слайд ${presentation.slides.length + 1}`);
     return {
         ...presentation,
         slides: [...presentation.slides, newSlide],
