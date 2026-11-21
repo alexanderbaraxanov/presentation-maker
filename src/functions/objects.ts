@@ -8,6 +8,7 @@ import type {
     Text,
     SlideObject, 
 } from "../types/objects.ts"
+import type { Presentation } from "../types/presentation.ts"
 import type { Slide } from "../types/slide.ts"
 
 function createDefaultObject(id: string, parametersObject: Parameters): DefaultObject {
@@ -17,16 +18,24 @@ function createDefaultObject(id: string, parametersObject: Parameters): DefaultO
     }
 }
 
-function addTextObject(slide: Slide, id: string, parametersObject: Parameters, contentText: Text): Slide {
-    const newTextObject: TextObject = {
-        ...createDefaultObject(id, parametersObject),
-        type: 'text',
-        contentObject: contentText, 
-    }
+function addTextObject(presentation: Presentation,  param: { slideId: string; id: string; parametersObject: Parameters; contentText: Text }): Presentation {
     return {
-        ...slide,
-        slideObjects: [...slide.slideObjects, newTextObject]
-    }
+        ...presentation,
+        slides: presentation.slides.map(slide => {
+            if (slide.id === param.slideId) {
+                const newTextObject: TextObject = {
+                    ...createDefaultObject(param.id, param.parametersObject),
+                    type: 'text',
+                    contentObject: param.contentText, 
+                };
+                return {
+                    ...slide,
+                    slideObjects: [...slide.slideObjects, newTextObject]
+                };
+            }
+            return slide;
+        })
+    };
 }
 
 function addImageObject(slide: Slide, id: string, parametersObject: Parameters, imageUrl: string): Slide {
@@ -41,11 +50,19 @@ function addImageObject(slide: Slide, id: string, parametersObject: Parameters, 
     }
 }
 
-function removeObject(slide: Slide, objectId: string): Slide {
+function removeObject(presentation: Presentation,  param: { slideId: string; objectIds: string[]}): Presentation {
     return {
-        ...slide,
-        slideObjects: slide.slideObjects.filter((slideObject) => slideObject.id !== objectId), 
-    }
+        ...presentation,
+        slides: presentation.slides.map(slide => {
+            if (slide.id === param.slideId){
+                return {
+                    ...slide,
+                    slideObjects: slide.slideObjects.filter(obj => !param.objectIds.includes(obj.id)), 
+                }
+            }
+            return slide
+        }) 
+    }   
 }
 
 function modifyObject(slide: Slide, objectId:string, modifyFunction: (object: SlideObject) => SlideObject): Slide {
@@ -74,6 +91,18 @@ function resizeObject(slide: Slide, objectId: string, newSizeObject: Size): Slid
         }})
 }
 
+function resizeObjectPresentation(presentation: Presentation, params: { slideId: string; objectId: string; width: number; height: number }): Presentation {
+    const { slideId, objectId, width, height } = params;
+    return {
+        ...presentation,
+        slides: presentation.slides.map(slide =>
+            slide.id === slideId
+                ? resizeObject(slide, objectId, { width, height })
+                : slide
+        ),
+    };
+}
+
 function moveObject(slide: Slide, objectId: string, newLocationObject: Point): Slide {
     return modifyObject(slide, objectId, (slideObject: SlideObject) => {
         return {
@@ -84,6 +113,22 @@ function moveObject(slide: Slide, objectId: string, newLocationObject: Point): S
             },
         }
     })
+}
+
+function moveObjectPresentation(presentation: Presentation, params: { slideId: string; objectId: string; x: number; y: number }): Presentation {
+    const { slideId, objectId, x, y } = params;
+
+    const updatedSlides = presentation.slides.map(slide => {
+        if (slide.id === slideId) {
+            return moveObject(slide, objectId, { x, y });
+        }
+        return slide;
+    });
+
+    return {
+        ...presentation,
+        slides: updatedSlides,
+    };
 }
 
 function updateTextObject(slide: Slide, objectId: string, newTextStyle: Text): Slide {
@@ -102,5 +147,7 @@ export {
     removeObject,
     resizeObject,
     moveObject,
+    moveObjectPresentation,
+    resizeObjectPresentation,
     updateTextObject, 
 }

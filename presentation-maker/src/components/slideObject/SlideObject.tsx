@@ -1,7 +1,11 @@
 import type { SlideObject } from "../../../../src/types/objects"
 
 type SlideObjectProps = {
-    slideObject: SlideObject
+    slideObject: SlideObject,
+    onSelect?: (e: React.MouseEvent, objectId: string) => void,
+    isSelected?: boolean,
+    onMouseDown?: (e: React.MouseEvent) => void,
+    onResizeStart?: (e: React.MouseEvent) => void,
 }
 
 function SlideObj(props: SlideObjectProps) {
@@ -11,6 +15,7 @@ function SlideObj(props: SlideObjectProps) {
             objectStyle = {
                 display: 'block',
                 position: 'absolute',
+                boxSizing: 'border-box',
                 left: props.slideObject.parametersObject.locationObject.x,
                 top: props.slideObject.parametersObject.locationObject.y,
                 height: props.slideObject.parametersObject.sizeObject.height,
@@ -18,10 +23,18 @@ function SlideObj(props: SlideObjectProps) {
                 fontFamily: props.slideObject.contentObject.style.fontFamily,
                 color: props.slideObject.contentObject.style.fontColor,
                 fontSize: props.slideObject.contentObject.style.fontSize,
+                outline: props.isSelected ? '2px solid #007bff' : '1px solid transparent',
             }  
 
             return (
-                <span style={objectStyle}>
+                <span 
+                    style={objectStyle} 
+                    data-SlideObject="true"
+                    onClick={(e) => {
+                        props.onSelect?.(e, props.slideObject.id); 
+                    }}
+                    onMouseDown={props.onMouseDown}
+                >
                     {props.slideObject.contentObject.content}
                 </span>
             )
@@ -34,21 +47,27 @@ function SlideObj(props: SlideObjectProps) {
                 top: props.slideObject.parametersObject.locationObject.y,
                 height: props.slideObject.parametersObject.sizeObject.height,
                 width: props.slideObject.parametersObject.sizeObject.width,
+                outline: props.isSelected ? '2px solid #007bff' : '1px solid transparent',
             };
 
             return (
                 <img style={objectStyle} src={props.slideObject.imageUrl} />
             )      
 
-        default:
-            break;
+        default:            
+            return (
+                <div 
+                    style={objectStyle} 
+                    data-slide-object="true"
+                    onClick={(e) => {
+                        props.onSelect?.(e, props.slideObject.id); 
+                    }} 
+                    onMouseDown={props.onMouseDown}
+                >
+                    
+                </div>
+            );
     }
-
-    return (
-        <div style={objectStyle}>
-            
-        </div>
-    )
 }
 
 export { SlideObj }

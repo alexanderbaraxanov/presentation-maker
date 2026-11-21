@@ -43,3 +43,32 @@
 .toolBarButton:focus {
     background: rgb(112, 62, 0);
 }
+
+.buttonConteiner {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    border-radius: 10px;
+    background:  rgba(209, 117, 4, 1);
+}
+
+.toolBarButtonHistory {
+    display: inline-flex;
+    border-radius: 10px;
+    height: 2.8rem;
+    width: 1.4rem;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+
+    background:  rgba(209, 117, 4, 1);
+}
+
+.toolBarButtonHistory:hover {
+    background: rgba(241, 134, 3, 0.85);
+}
+
+.buttonImgHistory {
+    height: 1.5rem;
+    width: 1.5rem;
+}

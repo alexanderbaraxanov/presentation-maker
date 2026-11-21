@@ -7,62 +7,52 @@ let modifierParams: any = null;
 let editorChangeHandler: (() => void) | null = null;
 
 let currentPresentation: Presentation | null = null;
-
-let activeSlide: string | null = null;
-
-let isPreviewMode: boolean = false; 
-
-let previewSlideIndex: number = 0;
+let past: Presentation[] = [];
+let future: Presentation[] = [];
 
 function setInitialState(presentation: Presentation): void {
     currentPresentation = presentation;
-
-    if (presentation.slides.length > 0) {
-        activeSlide = presentation.slides[0].id;
-    }
+    past = [];
+    future = [];
 }
 
 function getState(): Presentation | null {
     return currentPresentation;
 }
 
-function setPreviewMode(mode: boolean): void {
-    isPreviewMode = mode;
+function undo(): void {
+    if (past.length === 0 || !currentPresentation) return;
 
+    future = [currentPresentation, ...future];
+    const previous = past[past.length - 1];
+    past = past.slice(0, -1);
+    currentPresentation = previous;
     if (editorChangeHandler) {
         editorChangeHandler();
     }
 }
 
-function getPreviewMode(): boolean {
-    return isPreviewMode;
-}
-
-function getActiveSlide(): string | null {
-    return activeSlide;
-}
-
-function setActiveSlide(activeSlideId: string): void {
-    activeSlide = activeSlideId;
-
+function redo(): void {
+    if (future.length === 0 || !currentPresentation) return;
+    
+    past = [...past, currentPresentation];
+    const next = future[0];
+    future = future.slice(1);
+    currentPresentation = next;
     if (editorChangeHandler) {
         editorChangeHandler();
     }
 }
 
-function getPreviewSlideIndex(): number {
-    return previewSlideIndex;
-}
+function getCanUndo(): boolean { return past.length > 0; }
 
-function setPreviewSlideIndex(index: number): void {
-    if (!currentPresentation) return;
-    if (index >= 0 && index < currentPresentation.slides.length) {
-        previewSlideIndex = index;
-    }
+function getCanRedo(): boolean { return future.length > 0; }
 
-    if (editorChangeHandler) {
-        editorChangeHandler();
-    }
+function getHistoryState(): { canUndo: boolean; canRedo: boolean } {
+  return {
+    canUndo: past.length > 0,
+    canRedo: future.length > 0,
+  };
 }
 
 function addEditorChangeHandler(handler: () => void): void {
@@ -74,6 +64,12 @@ function dispatch(modifier: Modifier, params: any = null): void {
         console.error('State is not initialized! Call setInitialState first.');
         return;
     }
+
+    if (currentPresentation) {
+       past = [...past, currentPresentation];
+    }
+
+    future = [];
 
     modifierParams = params;
     currentPresentation = modifier(currentPresentation, params);
@@ -87,12 +83,11 @@ export {
     setInitialState, 
     getState, 
 
-    setActiveSlide,
-    getActiveSlide,
-    setPreviewMode,
-    getPreviewMode,
-    setPreviewSlideIndex,
-    getPreviewSlideIndex,
+    undo,
+    redo,
+    getCanUndo,
+    getCanRedo,
+    getHistoryState,
 
     dispatch, 
     addEditorChangeHandler

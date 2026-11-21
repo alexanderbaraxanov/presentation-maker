@@ -6,11 +6,13 @@ import save from "../../assets/save.svg"
 import load from "../../assets/load.svg"
 import startSlide from "../../assets/startButton.svg"
 import { SpaceUpdates } from "../spaceUpdates/SpaceUpdates"
-import { setPreviewMode } from "../../../../src/editor"
+import { useContext } from "react"
+import { CurrentPresentation } from "../presentationProvider/presentationProvider"
 
 
 
 function Menu() {
+    const switchMode = useContext(CurrentPresentation)?.switchIsPreview
     return (
         <div className={styles.menu} >
             <img className={styles.icon} src={urlIcon} />
@@ -23,7 +25,7 @@ function Menu() {
             </div>
             <SpaceUpdates name="namePresentation" className={styles.menuNameSpace} type="text" plaseholder="Название презентации..."/>
             <div className={styles.menuElement}>
-                <Button text="Слайд-шоу" styleButton={styles.buttonSlideStart} imageUrl={startSlide} styleImg={styles.startSlideImg} onClick={() => {setPreviewMode(true)}}/>
+                <Button text="Слайд-шоу" styleButton={styles.buttonSlideStart} imageUrl={startSlide} styleImg={styles.startSlideImg} onClick={switchMode}/>
             </div>
         </div>
     )
