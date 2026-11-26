@@ -1,0 +1,109 @@
+.menu {
+    display: grid;
+    grid-template-columns: 4% 4fr 4fr 3.7fr;
+    grid-template-rows: 1fr;
+    column-gap: 5px;
+    width: 100%;
+    height: 4.5rem;
+    background: rgba(78, 54, 23, 0.92);
+}
+
+.menuElement {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.buttonNewPresentation {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 8px;
+    background: rgb(213, 156, 84);
+    border-radius: 10px;
+}
+
+.buttonNewPresentation:hover {
+    background: rgb(228, 202, 171);
+}
+
+.spaceSaveAndLoad {
+    display: inline-flex;  
+    height: 50%;
+    width: 6rem;
+    border-radius: 10px;
+    background: rgba(213, 156, 84, 1);
+    justify-content: space-around;
+    align-items: center;
+}
+
+.buttonSaveAndLoad {
+    background: rgba(213, 156, 84, 1);
+    width: 2.6rem;
+    border-radius: 10px;
+}
+
+.buttonSaveAndLoad:hover {
+    background: rgb(228, 202, 171);
+}
+
+.menuNameSpace {
+    height: 50%;
+    width: 70%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: none;
+    align-self: center;
+    justify-self: center;
+    font-size: medium;
+    font-weight: 800;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.menuNameSpace::placeholder {
+    color: rgba(30, 30, 30, 0.44);
+    text-align: center;
+    font-size: large;
+    font-weight: 800;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.menuNameSpace:focus-visible {
+    outline-color: rgb(211, 161, 95);
+    outline-width: 2px;
+    outline-style: double;
+}
+
+.buttonSlideStart {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-evenly;      
+
+    gap: 8px; 
+    background: rgba(213, 156, 84, 1);
+    border-radius: 10px;
+}
+
+.buttonSlideStart:hover {
+    background: rgb(228, 202, 171);
+}
+
+.startSlideImg {
+    width: 2.8rem;
+    height: 2.8rem;
+}
+
+.menuImg {
+    width: 1.8rem;
+    height: 1.8rem;
+}
+
+.icon {
+    height: 4.5rem;
+    padding: 1px, 1px, 1px, 1px;
+    grid-area: 1;
+    justify-self: center;
+    align-self: center;
+}

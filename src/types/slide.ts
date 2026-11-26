@@ -1,4 +1,4 @@
-import type { SlideObject } from './objects.ts';
+import type { SlideObject} from './objects.ts';
 
 type Slide = {
     id: string;
@@ -7,15 +7,26 @@ type Slide = {
     background: Background;
 } 
 
-type Background = ColorBackground | ImageBackground
+type Background = ColorBackground | GradientBackground | ImageBackground | null
 
 type ColorBackground = {
+    type: 'color';
     color: string;
-    filling: 'solid' | 'gradient';
+}
+
+type GradientBackground = {
+    type: 'gradient';
+    colors: string[];
+    angle?: number;
 }
 
 type ImageBackground = {
+    type: 'image';
     src: string;
 }
 
-export type { Slide, Background};
+export type { 
+    Slide, 
+    Background, 
+    SlideObject 
+};

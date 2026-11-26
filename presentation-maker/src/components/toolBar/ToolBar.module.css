@@ -1,0 +1,74 @@
+.toolBarSpace {
+    width: 70px;
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    padding-left: 12px;
+}
+
+.toolBar {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    gap: 1.5em;
+    width: 4em;
+    padding: 1.5em 0 1.5em 0;
+    grid-column-start: 1;
+    background: rgba(237, 223, 205, 1);
+    border-radius: 100px;
+}
+
+.toolBarButton {
+    display: inline-flex;
+    border-radius: 10px;
+    height: 2.8rem;
+    width: 2.8rem;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+
+    background:  rgba(209, 117, 4, 1);
+}
+
+.buttonImg {
+    height: 2rem;
+    width: 2rem;
+}
+
+.toolBarButton:hover {
+    background: rgba(241, 134, 3, 0.85);
+}
+
+.toolBarButton:focus {
+    background: rgb(112, 62, 0);
+}
+
+.buttonConteiner {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    border-radius: 10px;
+    background:  rgba(209, 117, 4, 1);
+}
+
+.toolBarButtonHistory {
+    display: inline-flex;
+    border-radius: 10px;
+    height: 2.8rem;
+    width: 1.4rem;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+
+    background:  rgba(209, 117, 4, 1);
+}
+
+.toolBarButtonHistory:hover {
+    background: rgba(241, 134, 3, 0.85);
+}
+
+.buttonImgHistory {
+    height: 1.5rem;
+    width: 1.5rem;
+}
