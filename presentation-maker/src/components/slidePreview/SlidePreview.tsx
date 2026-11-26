@@ -3,7 +3,8 @@ import type { Slide } from "../../../../src/types/slide";
 import { SlideObj } from "../slideObject/SlideObject";
 import { useDnd } from "../../hooks/useDnd/useDnd";
 import { dispatch } from "../../../../src/editor";
-import { moveObjectPresentation } from "../../../../src/functions/objects";
+import { useResize } from "../../hooks/useResize/useResize";
+import { resizeObjectPresentation, moveObjectPresentation } from "../../../../src/functions/objects";
 
 type SlidePreviewProps = {
     slide: Slide;
@@ -24,6 +25,18 @@ function SlidePreview(props: SlidePreviewProps) {
                 objectId: id,
                 x,
                 y,
+            });
+        }
+    );
+
+    const { handlerResizeStart } = useResize(
+        props.slide.id,
+        (id, width, height) => {
+            dispatch(resizeObjectPresentation, {
+                slideId: props.slide.id,
+                objectId: id,
+                width,
+                height,
             });
         }
     );
@@ -53,6 +66,14 @@ function SlidePreview(props: SlidePreviewProps) {
                             onSelect={props.handlerSelecte} 
                             onMouseDown={(e: React.MouseEvent) => {
                                 handlerMouseDown(e, object.id);
+                            }}
+                            onResizeStart={(e: React.MouseEvent) => {
+                                handlerResizeStart(
+                                    e,
+                                    object.id,
+                                    object.parametersObject.sizeObject.width,
+                                    object.parametersObject.sizeObject.height
+                                );
                             }}
                         />
                     );

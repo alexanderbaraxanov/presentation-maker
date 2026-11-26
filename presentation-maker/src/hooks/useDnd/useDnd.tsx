@@ -11,7 +11,7 @@ function useDnd(slideId: string | undefined, selectedIds: string[], objects: Sli
         initialPositions: Map<string, { x: number; y: number }>;
     } | null>(null);
 
-    const handlerMouseDown = (e: React.MouseEvent, objectId: string) => {
+    const handlerMouseDown = (event: React.MouseEvent, objectId: string) => {
         if (!selectedIds.includes(objectId)) return;
 
         const currSlide = slide.current;
@@ -19,8 +19,8 @@ function useDnd(slideId: string | undefined, selectedIds: string[], objects: Sli
         
         const rect = currSlide.getBoundingClientRect();
 
-        const startX = e.clientX - rect.left;
-        const startY = e.clientY - rect.top;
+        const startX = event.clientX - rect.left;
+        const startY = event.clientY - rect.top;
 
         const initialPositions = new Map<string, { x: number; y: number }>();
         objects.forEach(obj => {
@@ -41,12 +41,12 @@ function useDnd(slideId: string | undefined, selectedIds: string[], objects: Sli
     useLayoutEffect(() => {
         if (!isDragging) return;
 
-        const handlerMouseMove = (e: MouseEvent) => {
+        const handlerMouseMove = (event: MouseEvent) => {
             if (!dragRef.current || !slide.current) return;
             const rect = slide.current.getBoundingClientRect();
 
-            const currentX = e.clientX - rect.left;
-            const currentY = e.clientY - rect.top;
+            const currentX = event.clientX - rect.left;
+            const currentY = event.clientY - rect.top;
 
             const dx = currentX - dragRef.current.startX;
             const dy = currentY - dragRef.current.startY;

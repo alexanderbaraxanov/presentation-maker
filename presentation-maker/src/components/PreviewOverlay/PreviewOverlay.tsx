@@ -12,6 +12,8 @@ function PreviewOverlay() {
     const presentationContext = useContext(CurrentPresentation)
     const currentIndex = presentationContext?.previewSlideId;
     const slides = presentationContext?.presentation?.slides;
+    if (!slides || !currentIndex) return;
+
     const next = presentationContext?.nextSlide;
     const prev = presentationContext?.prevSlide;
     const switchMode = useContext(CurrentPresentation)?.switchIsPreview

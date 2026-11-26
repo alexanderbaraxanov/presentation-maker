@@ -4,7 +4,6 @@ const MIN_SIZE = 30;
 
 function useResize(
     slideId: string | undefined,
-    zoom: number,
     onResize: (id: string, width: number, height: number) => void
 ) {
     const [isResizing, setIsResizing] = useState(false);
@@ -19,22 +18,20 @@ function useResize(
 
     const onResizeRef = useRef(onResize);
     onResizeRef.current = onResize;
-    const zoomRef = useRef(zoom);
-    zoomRef.current = zoom;
 
     const handlerResizeStart = (
-        e: React.MouseEvent,
+        event: React.MouseEvent,
         objectId: string,
         width: number,
         height: number
     ) => {
-        if (e.button !== 0) return;
-        e.preventDefault();
+        if (event.button !== 0) return;
+        event.preventDefault();
 
         resizeRef.current = {
             objectId,
-            startX: e.clientX,
-            startY: e.clientY,
+            startX: event.clientX,
+            startY: event.clientY,
             startWidth: width,
             startHeight: height,
         };
@@ -44,17 +41,17 @@ function useResize(
     useLayoutEffect(() => {
         if (!isResizing) return;
 
-        const handlerMouseMove = (e: MouseEvent) => {
-            const r = resizeRef.current;
-            if (!r) return;
+        const handlerMouseMove = (event: MouseEvent) => {
+            const rect = resizeRef.current;
+            if (!rect) return;
 
-            const dx = (e.clientX - r.startX) / zoomRef.current;
-            const dy = (e.clientY - r.startY) / zoomRef.current;
+            const dx = (event.clientX - rect.startX);
+            const dy = (event.clientY - rect.startY);
 
-            const width = Math.max(MIN_SIZE, r.startWidth + dx);
-            const height = Math.max(MIN_SIZE, r.startHeight + dy);
+            const width = Math.max(MIN_SIZE, rect.startWidth + dx);
+            const height = Math.max(MIN_SIZE, rect.startHeight + dy);
 
-            onResizeRef.current(r.objectId, width, height);
+            onResizeRef.current(rect.objectId, width, height);
         };
 
         const handlerMouseUp = () => {

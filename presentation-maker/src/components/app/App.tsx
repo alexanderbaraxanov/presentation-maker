@@ -68,11 +68,7 @@ function App() {
         })
     }, [])
     
-    if (previewMode) {
-        return (
-            <PreviewOverlay />
-        );
-    }
+    
 
     const presentationContext = useContext(CurrentPresentation)
     const slides = presentationContext?.presentation?.slides;
@@ -82,6 +78,11 @@ function App() {
     const {selectedObjs, handlerSelecteObject, clearSelection} = useSelection(currentSlide?.id);
     useDeleteSelectedObjs(currentSlide?.id, selectedObjs, clearSelection);
 
+    if (previewMode) {
+        return (
+            <PreviewOverlay />
+        );
+    }
     return (
         <div 
             className={styles.siteSpace}
